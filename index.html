@@ -38,12 +38,12 @@
             <img src="images/sihijau.png" alt="Logo GeoSHI" class="w-20 h-20">
         </div>
 
-        <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Pilih Perusahaan</h1>
-        <p class="text-slate-400 text-sm mb-12">Masukkan kode akses Anda.</p>
+        <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Silahkan Pilih Perusahaan</h1>
+        <p class="text-slate-400 text-sm mb-12">Masukkan Kode Akses Anda.</p>
 
         <div class="w-full max-w-sm space-y-4">
             
-            <button onclick="openTokenPopup('PT. Mega Marine Pride', 'MMP2026', 'peta_ptmmp.html')" 
+            <button onclick="openTokenPopup('PT. Mega Marine Pride', 'MMP2026', 'webtanam_ptmmp/index.html')" 
                 class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
                 <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Mega Marine Pride</span>
                 <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
@@ -55,13 +55,13 @@
                 <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
             </button>
     
-            <button onclick="openTokenPopup('PT. Mitra Alam Segar', 'MAS2026', 'peta_ptmas.html')" 
+            <button onclick="openTokenPopup('PT. Mitra Alam Segar', 'MAS2026', 'webtanam_ptmas/index.html')" 
                 class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
                 <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Mitra Alam Segar</span>
                 <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
             </button>
     
-            <button onclick="openTokenPopup('PT. Erindo Mandiri', 'EM2026', 'peta_ptem.html')" 
+            <button onclick="openTokenPopup('PT. Erindo Mandiri', 'EM2026', 'webtanam_ptem/index.html')" 
                 class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
                 <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Erindo Mandiri</span>
                 <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
@@ -69,7 +69,7 @@
     
         </div>
 
-        <p class="text-[10px] text-slate-600 uppercase tracking-widest mt-16">&copy; 2026 GeoSHI Platform v1.2</p>
+        <p class="text-[10px] text-slate-600 uppercase tracking-widest mt-16">&copy; 2026 GeoSHI Platform v1.2 by haylun57</p>
     </div>
 
     <script>
@@ -86,7 +86,7 @@
         function openTokenPopup(ptNama, ptToken, ptLink) {
             Swal.fire({
                 title: 'Kode Akses ' + ptNama,
-                html: '<input type="password" id="tokenInput" class="swal2-input text-center text-xl tracking-[0.5em] font-bold" placeholder="Masukkan Token">',
+                html: '<input type="password" id="tokenInput" class="swal2-input text-center text-base tracking-[0.5em] font-italic" placeholder="Kode Akses">',
                 confirmButtonText: 'Buka Peta',
                 confirmButtonColor: '#22c55e', // Warna Green-500
                 background: '#1a1f2e', // Warna Dark-Slate-800
@@ -96,7 +96,7 @@
                 preConfirm: () => {
                     const token = Swal.getPopup().querySelector('#tokenInput').value;
                     if (!token) {
-                        Swal.showValidationMessage('Token wajib diisi Pi!');
+                        Swal.showValidationMessage('Kode Akses Wajib Diisi !');
                     }
                     return token;
                 }
@@ -120,8 +120,8 @@
                         // Gagal, Token Salah!
                         Swal.fire({
                             icon: 'error',
-                            title: 'Token Salah',
-                            text: 'Akses ditolak, Pi!',
+                            title: 'Kode Akses Salah',
+                            text: 'Akses ditolak !',
                             background: '#1a1f2e',
                             color: '#fff',
                         });
