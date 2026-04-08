@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GeoSHI Portal | Geotagging Si Hijau Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; background: #0b0f19; color: white; -webkit-tap-highlight-color: transparent; }
+        .bg-radial { background: radial-gradient(circle at 50% -10%, #1e293b, #0b0f19 80%); }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.06); }
+        
+        /* Animasi Loading GeoSHI */
+        #loader { position: fixed; inset: 0; background: #0b0f19; z-index: 100; flex-direction: column; }
+        @keyframes pulseLogo { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.02); } }
+        #loader img { animation: pulseLogo 2s ease-in-out infinite; }
+        @keyframes fillBar { 0% { width: 0%; } 100% { width: 100%; } }
+        #load-bar { animation: fillBar 1.5s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-radial h-screen w-screen overflow-hidden">
+
+    <div id="loader" class="flex justify-center items-center">
+        <img src="images/sihijau.png" alt="Logo GeoSHI" class="w-32 h-32 mb-6">
+        <h1 class="text-xl font-bold tracking-widest text-white/90">GeoSHI</h1>
+        <p class="text-[10px] text-green-300 uppercase tracking-[0.3em] mt-1 mb-12">Geotagging Si Hijau Indonesia</p>
+        <div class="w-48 h-1 bg-slate-800 rounded-full overflow-hidden">
+            <div id="load-bar" class="h-full bg-green-500 rounded-full"></div>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden opacity-0 h-full w-full flex flex-col justify-center items-center p-6 transition-opacity duration-1000">
+        
+        <div class="glass w-28 h-28 rounded-full flex items-center justify-center mb-6 shadow-2xl shadow-green-950/20 border border-green-500/20">
+            <img src="images/sihijau.png" alt="Logo GeoSHI" class="w-20 h-20">
+        </div>
+
+        <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Pilih Perusahaan</h1>
+        <p class="text-slate-400 text-sm mb-12">Masukkan kode akses Anda.</p>
+
+        <div class="w-full max-w-sm space-y-4">
+            
+            <button onclick="openTokenPopup('PT. Mega Marine Pride', 'MMP2026', 'peta_ptmmp.html')" 
+                class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
+                <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Mega Marine Pride</span>
+                <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
+            </button>
+    
+            <button onclick="openTokenPopup('PT. Baramuda Bahari', 'PTBB2026', 'webtanam_ptbb/index.html')" 
+                class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
+                <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Baramuda Bahari</span>
+                <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
+            </button>
+    
+            <button onclick="openTokenPopup('PT. Mitra Alam Segar', 'MAS2026', 'peta_ptmas.html')" 
+                class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
+                <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Mitra Alam Segar</span>
+                <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
+            </button>
+    
+            <button onclick="openTokenPopup('PT. Erindo Mandiri', 'EM2026', 'peta_ptem.html')" 
+                class="w-full bg-slate-800 hover:bg-slate-700/80 text-left px-8 py-5 rounded-3xl border border-slate-700/50 flex justify-between items-center transition-all group active:scale-95">
+                <span class="font-semibold text-white/90 group-hover:text-green-300">PT. Erindo Mandiri</span>
+                <span class="text-green-400 group-hover:translate-x-1 transition-transform">➜</span>
+            </button>
+    
+        </div>
+
+        <p class="text-[10px] text-slate-600 uppercase tracking-widest mt-16">&copy; 2026 GeoSHI Platform v1.2</p>
+    </div>
+
+    <script>
+        // Logika Loading 1.5 Detik
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                document.getElementById('main-content').classList.add('opacity-100');
+            }, 1500); // Tampil loading selama 1.5 detik
+        }
+
+        // Fungsi Membuka Popup Token dengan SweetAlert2 (Nuansa Dark)
+        function openTokenPopup(ptNama, ptToken, ptLink) {
+            Swal.fire({
+                title: 'Kode Akses ' + ptNama,
+                html: '<input type="password" id="tokenInput" class="swal2-input text-center text-xl tracking-[0.5em] font-bold" placeholder="Masukkan Token">',
+                confirmButtonText: 'Buka Peta',
+                confirmButtonColor: '#22c55e', // Warna Green-500
+                background: '#1a1f2e', // Warna Dark-Slate-800
+                color: '#fff',
+                showCloseButton: true,
+                focusConfirm: false,
+                preConfirm: () => {
+                    const token = Swal.getPopup().querySelector('#tokenInput').value;
+                    if (!token) {
+                        Swal.showValidationMessage('Token wajib diisi Pi!');
+                    }
+                    return token;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (result.value === ptToken) {
+                        // Sukses, Token Benar!
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Akses Diterima',
+                            text: 'Membuka peta ' + ptNama + '...',
+                            timer: 1500,
+                            showConfirmButton: false,
+                            background: '#1a1f2e',
+                            color: '#fff',
+                        }).then(() => {
+                            // Arahkan ke file peta PT
+                            window.location.href = ptLink; 
+                        });
+                    } else {
+                        // Gagal, Token Salah!
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Token Salah',
+                            text: 'Akses ditolak, Pi!',
+                            background: '#1a1f2e',
+                            color: '#fff',
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
